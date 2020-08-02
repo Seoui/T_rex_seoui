@@ -2,7 +2,7 @@
 #include "Systems/Device.h"
 #include "Viewer/Camera.h"
 #include "Scenes/Scene.h"
-#include "Scenes/gameScene.h"
+#include "Scenes/GameScene.h"
 
 SceneValues* values;
 vector<Scene*> scenes;
@@ -15,7 +15,7 @@ void InitScene()
 	values->MainCamera = new Camera();
 	D3DXMatrixIdentity(&values->Projection);
 
-	scenes.push_back(new gameScene(values));
+	scenes.push_back(new GameScene(values));
 }
 
 void DestroyScene()

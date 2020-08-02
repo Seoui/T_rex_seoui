@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "Background.h"
 
-Background::Background(wstring shaderFile)
+Background::Background()
 	: nPrevSprite(0), nCurSprite(1), nNextSprite(2),
 	moveSpeed(200.0f), bSwapGround(false), position(0, 0),
 	backGroundTrigger(600, 2)
 {
+	wstring shaderFile = L"Effect.fx";
 	sprites[0] = new Sprite(L"t_rex_sprite.png", shaderFile, 0, 53, 1200, 68);
 	sprites[1] = new Sprite(L"t_rex_sprite.png", shaderFile, 0, 53, 1200, 68);
 	sprites[2] = new Sprite(L"t_rex_sprite.png", shaderFile, 0, 53, 1200, 68);

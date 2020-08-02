@@ -2,14 +2,12 @@
 #include "T_rex.h"
 
 T_rex::T_rex(D3DXVECTOR2 position, D3DXVECTOR2 scale)
-	: jumpSpeed(0), jumpTime(0), jumpHeight(0),
-	focusOffset(180, 160)
+	: focusOffset(180, 160)
 {
-	animation = new Animation();
-
 	wstring shaderFile = L"Effect.fx";
 	wstring spriteFile = L"t_rex_sprite.png";
-	
+
+	animation = new Animation();
 	Clip* clip;
 	// Run[0]
 	{

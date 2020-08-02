@@ -25,6 +25,9 @@
     <Filter Include="Viewer">
       <UniqueIdentifier>{29f1b03c-1ebd-43bc-86a4-3626429c1ff7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{89e95397-b2ee-4d92-946b-ccf77d54721b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -74,14 +77,35 @@
       <Filter>Viewer</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scenes\gameScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\T_rex.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Background.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Bird.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Cactus.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\GameScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\GameManager.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Cloud.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Moon.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Star.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,14 +161,35 @@
     <ClInclude Include="Viewer\IFollowing.h">
       <Filter>Viewer</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\gameScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\T_rex.h">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Background.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Bird.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Cactus.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\GameScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\GameManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Cloud.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Moon.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Star.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

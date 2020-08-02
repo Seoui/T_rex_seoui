@@ -24,10 +24,10 @@ private:
 	Animation* animation;
 	D3DXVECTOR2 focusOffset;
 	D3DXVECTOR2 startPosition;
-
-	float jumpSpeed;
-	float jumpTime;
-	float jumpHeight;
+	
+	float jumpSpeed = 0;
+	float jumpTime = 0;
+	float jumpHeight = 0;
 	float GravityAcceleration = -3.0f;
 
 };

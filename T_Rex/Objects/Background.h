@@ -37,7 +37,7 @@ public:
 	};
 
 public:
-	Background(wstring shaderFile);
+	Background();
 	~Background();
 
 	void Update(D3DXMATRIX& V, D3DXMATRIX& P);

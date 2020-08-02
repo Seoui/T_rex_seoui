@@ -1,11 +1,11 @@
 #pragma once
 #include "Scenes/Scene.h"
 
-class gameScene : public Scene
+class GameScene : public Scene
 {
 public:
-	gameScene(SceneValues* values);
-	~gameScene();
+	GameScene(SceneValues* values);
+	~GameScene();
 
 	virtual void Update() override;
 	virtual void Render() override;
