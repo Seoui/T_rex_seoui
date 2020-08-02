@@ -35,7 +35,7 @@ void Update()
 	(
 		&values->Projection,
 		(float)Width* -0.5f, (float)Width*0.5f,
-		(float)Height* -0.5, (float)Height*0.5f,
+		(float)Height* -0.3f, (float)Height*0.7f,
 		-1, 1
 	); //Åõ¿µ
 	

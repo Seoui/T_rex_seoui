@@ -11,6 +11,7 @@ public:
 
 	void Position(D3DXVECTOR2 vec) { position = vec; }
 	D3DXVECTOR2 Position() { return position; }
+	Sprite* GetSprite() { return animation->GetSprite(); }
 
 private:
 	D3DXVECTOR2 position;

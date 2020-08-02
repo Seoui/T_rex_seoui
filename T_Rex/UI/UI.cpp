@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "UI.h"
 
-UI::UI()
-	:position(280.0f, 135.0f), scale(1.0f, 1.0f)
+UI::UI(D3DXVECTOR2 position)
+	:position(position), scale(1.0f, 1.0f)
 {
 	wstring shaderFile = L"Effect.fx";
 	wstring textureFile = L"t_rex_sprite.png";
+	
 	float time = 0.5f;
 
 	for(int i = 0; i<5;i++)
@@ -31,7 +32,7 @@ UI::UI()
 		animation[i]->Position(position);
 		animation[i]->Scale(scale);
 		animation[i]->Play(0);
-		position.x -= 10.0f;
+		position.x -= 11.0f;
 	}
 }
 

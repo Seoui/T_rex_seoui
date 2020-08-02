@@ -3,7 +3,7 @@
 class UI
 {
 public:
-	UI();
+	UI(D3DXVECTOR2 position);
 	~UI();
 
 	void Update(D3DXMATRIX& V, D3DXMATRIX& P);
@@ -17,4 +17,5 @@ private:
 	D3DXVECTOR2 scale;
 
 	vector<Animation*> animation;
+	//HX 최고점수 저장
 };

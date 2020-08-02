@@ -12,4 +12,6 @@ public:
 
 private:
 	vector<class Marker*> markers;
+	bool bSwapGround = false;
+	bool bCrash = false;
 };

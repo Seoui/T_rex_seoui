@@ -18,8 +18,8 @@ int APIENTRY WinMain
 	return 0;
 }
 
-UINT Width = 600;
-UINT Height = 300;
+UINT Width = 700;
+UINT Height = 350;
 HWND Hwnd = nullptr;
 wstring Title = L"D2D";
 

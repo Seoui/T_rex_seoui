@@ -10,6 +10,7 @@
 #include <map>
 #include <functional>	
 #include <mutex>
+#include <random>
 using namespace std;
 
 // DX Lib
