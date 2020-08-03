@@ -18,6 +18,6 @@ private:
 	D3DXVECTOR2 scale;
 
 	Animation* animation = nullptr;
-	float moveSpeed = 200.0f;
+	float moveSpeed = 220.0f;
 };
 

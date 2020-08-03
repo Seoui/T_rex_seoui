@@ -25,9 +25,10 @@ private:
 	float gameTime = 15.0f;
 	float gamePlayTime = 0.0f;
 	float multipleTime = 1;
-	float moveSpeed = 200.0f;
+	float moveSpeed = 220.0f;
 	bool bSwapGround = false;
 	bool bCrash = false;
 	bool bNight = false;
 	bool bDay = true;
+	bool bdevelopMode = false;
 };

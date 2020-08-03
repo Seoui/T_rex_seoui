@@ -44,6 +44,7 @@ public:
 	void Render();
 	void SwapGround(bool bSwapGround);
 	void SetMoveSpeed(float speed) { moveSpeed = speed; }
+	void SetDevelopMode(bool state) { bdevelopMode = state; }
 
 	D3DXMATRIX getLineTriggerWorld() { return lineTrigger->getWorld(); }
 	D3DXMATRIX getCurSpriteWorld() { return sprites[nCurSprite]->World(); }
@@ -61,5 +62,6 @@ private:
 	int nNextSprite;
 	bool bSwapGround;
 	float moveSpeed;
+	bool bdevelopMode;
 };
 

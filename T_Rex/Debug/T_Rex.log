@@ -1,3 +1,6 @@
-﻿  GameScene.cpp
-C:\Users\dusto\OneDrive\바탕 화면\Seoui_T_rex\T_Rex\Scenes\GameScene.cpp(67,33): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Background.cpp
+  GameManager.cpp
+  GameScene.cpp
+  main.cpp
+  코드를 생성하고 있습니다...
   T_Rex.vcxproj -> C:\Users\dusto\OneDrive\바탕 화면\Seoui_T_rex\Debug\T_Rex.exe

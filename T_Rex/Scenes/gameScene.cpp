@@ -24,7 +24,6 @@ GameScene::GameScene(SceneValues * values)
 	t_rex = new T_rex(D3DXVECTOR2(-290, 0), D3DXVECTOR2(1, 1));
 	collider = new Collider();
 	ui = new UI(D3DXVECTOR2(300.0f, 220.0f));
-	bool (UI::*CallUICrash)(bool) = &UI::Crash;
 }
 
 GameScene::~GameScene()
@@ -64,7 +63,7 @@ void GameScene::Update()
 		if (gamePlayTime > gameTime)
 		{
 			if(moveSpeed < 350.0f)
-				moveSpeed += moveSpeed * 0.2;
+				moveSpeed += moveSpeed * 0.2f;
 			background->SetMoveSpeed(moveSpeed);
 			gm->setMoveSpeed(moveSpeed);
 			gamePlayTime = 0.0f;
@@ -84,6 +83,13 @@ void GameScene::Update()
 			gameState = GAMESTATE::RUN;
 		}
 	}
+
+	if (Key->Down('M'))
+	{
+		bdevelopMode = !bdevelopMode;
+		background->SetDevelopMode(bdevelopMode);
+		gm->setDevelopMode(bdevelopMode);
+	}
 }
 
 void GameScene::Render()
@@ -92,8 +98,11 @@ void GameScene::Render()
 	background->Render();
 	gm->Render();
 	t_rex->Render();
-	collider->Render();
-	collider->DrawColliderColor(bSwapGround);
+	if(bdevelopMode == true)
+	{
+		collider->Render();
+		collider->DrawColliderColor(bSwapGround);
+	}
 	ui->Render();
 }
 
@@ -133,7 +142,7 @@ void GameScene::CheckCrash(D3DXMATRIX& V, D3DXMATRIX& P)
 
 void GameScene::ChangeDayNight()
 {
-	// ¹ã ³· º¯°æ, ¹ã->12ÃÊ, ³·->60ÃÊ
+	// ¹ã ³· º¯°æ, ¹ã->12ÃÊ, ³·->12ÃÊ
 	if (bDay == true)
 	{
 		dayPlayTime += Time::Delta();
@@ -162,7 +171,7 @@ void GameScene::ChangeDayNight()
 void GameScene::Reset()
 {
 	multipleTime = 1; //¼Óµµ ¿ø·¡´ë·Î
-	moveSpeed = 200.0f;
+	moveSpeed = 220.0f;
 	gamePlayTime = 0.0f;
 	dayPlayTime = 0.0f;
 	nightPlayTime = 0.0f;

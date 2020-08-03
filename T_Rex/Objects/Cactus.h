@@ -19,6 +19,6 @@ private:
 	D3DXVECTOR2 scale;
 	
 	Sprite* sprite = nullptr;
-	float moveSpeed = 200.0f;
+	float moveSpeed = 220.0f;
 };
 

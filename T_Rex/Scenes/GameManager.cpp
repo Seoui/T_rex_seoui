@@ -50,7 +50,7 @@ void GameManager::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 		5개의 오브젝트를 랜덤시간에 생성한다.
 		새, 선인장 오브젝트에는 collider를 추가한다.
 	*/
-
+	gameTime += Time::Delta();
 	// spawn bird or cactus
 	bcPlayTime += Time::Delta();
 	if (bcRandTime < bcPlayTime)
@@ -170,17 +170,20 @@ void GameManager::Render()
 			s->Render();
 	}
 
-	if (birdColliders.size() > 0)
+	if (bdevelopMode == true) 
 	{
-		for (auto& c : birdColliders)
-			c->Render();
-	}
+		if (birdColliders.size() > 0)
+		{
+			for (auto& c : birdColliders)
+				c->Render();
+		}
 
-	if (cactusColliders.size() > 0)
-	{
-		for (auto& c : cactusColliders)
-			c->Render();
-	}
+		if (cactusColliders.size() > 0)
+		{
+			for (auto& c : cactusColliders)
+				c->Render();
+		}
+	}	
 }
 
 void GameManager::RemoveObject()
@@ -212,6 +215,17 @@ void GameManager::RemoveObject()
 			star.erase(star.begin());
 }
 
+void GameManager::setNight(bool bState)
+{
+	bNight = bState;
+	if (bNight == false)
+	{
+		moon.clear();
+		star.clear();
+	}
+
+}
+
 void GameManager::setMoveSpeed(float speed)
 {
 	moveSpeed = speed;
@@ -235,15 +249,25 @@ void GameManager::Reset()
 	cactus.clear();
 	birdColliders.clear();
 	cactusColliders.clear();
-	moveSpeed = 200.0f;
+	moon.clear();
+	star.clear();
+	bNight = false;
+	moveSpeed = 220.0f;
+	gameTime = 0.0f;
 }
 
 void GameManager::SpawnBirdOrCactus()
 {
-	uniform_int_distribution<int> distBC(0, 1);
-	int bSelectBC = distBC(randomEngine);
-	if (bSelectBC)
-		SpawnBird();
+	if (gameTime > 50.0f)
+	{
+		uniform_int_distribution<int> distBC(0, 1);
+		int bSelectBC = distBC(randomEngine);
+
+		if (bSelectBC)
+			SpawnBird();
+		else
+			SpawnCactus();
+	}
 	else
 		SpawnCactus();
 	uniform_real_distribution<float> BCTime(1.0f, 2.5f);

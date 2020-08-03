@@ -3,7 +3,7 @@
 
 Background::Background()
 	: nPrevSprite(0), nCurSprite(1), nNextSprite(2),
-	moveSpeed(200.0f), bSwapGround(false), position(0, 0),
+	moveSpeed(220.0f), bSwapGround(false), position(0, 0),
 	backGroundTrigger(600, 2)
 {
 	wstring shaderFile = L"Effect.fx";
@@ -50,7 +50,8 @@ void Background::Update(D3DXMATRIX & V, D3DXMATRIX & P)
 
 void Background::Render()
 {
-	lineTrigger->Render();
+	if(bdevelopMode == true)
+		lineTrigger->Render();
 	sprites[0]->Render();
 	sprites[1]->Render();
 	sprites[2]->Render();

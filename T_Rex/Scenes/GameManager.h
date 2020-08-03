@@ -27,9 +27,10 @@ public:
 	vector<Cactus*>& GetCactus() { return cactus; }
 	vector<Collider*>& GetBirdColliders() { return birdColliders; }
 	vector<Collider*>& GetCactusColliders() { return cactusColliders; }
-	void setNight(bool bState) { bNight = bState; }
+	void setNight(bool bState);
 	void setMoveSpeed(float speed);
 	void Reset();
+	void setDevelopMode(bool state) { bdevelopMode = state; }
 
 private:
 	void SpawnBirdOrCactus();
@@ -55,7 +56,9 @@ private:
 	SxyExy starXY[3];
 
 	bool bNight = false;
-	float moveSpeed = 200.0f;
+	bool bdevelopMode = false;
+	double gameTime = 0.0f;
+	float moveSpeed = 220.0f;
 	float bcPlayTime = 0.0f;
 	float bcRandTime;
 	float cloudPlayTime = 0.0f;
