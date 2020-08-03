@@ -28,6 +28,6 @@ private:
 	float jumpSpeed = 0;
 	float jumpTime = 0;
 	float jumpHeight = 0;
-	float GravityAcceleration = -3.0f;
+	float GravityAcceleration = -2.0f;
 
 };

@@ -25,8 +25,11 @@ public:
 
 	vector<Bird*>& GetBird() { return bird; }
 	vector<Cactus*>& GetCactus() { return cactus; }
+	vector<Collider*>& GetBirdColliders() { return birdColliders; }
+	vector<Collider*>& GetCactusColliders() { return cactusColliders; }
 	void setNight(bool bState) { bNight = bState; }
 	void setMoveSpeed(float speed);
+	void Reset();
 
 private:
 	void SpawnBirdOrCactus();

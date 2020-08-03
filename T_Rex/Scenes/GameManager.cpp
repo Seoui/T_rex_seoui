@@ -229,6 +229,15 @@ void GameManager::setMoveSpeed(float speed)
 	}
 }
 
+void GameManager::Reset()
+{
+	bird.clear();
+	cactus.clear();
+	birdColliders.clear();
+	cactusColliders.clear();
+	moveSpeed = 200.0f;
+}
+
 void GameManager::SpawnBirdOrCactus()
 {
 	uniform_int_distribution<int> distBC(0, 1);
@@ -237,7 +246,7 @@ void GameManager::SpawnBirdOrCactus()
 		SpawnBird();
 	else
 		SpawnCactus();
-	uniform_real_distribution<float> BCTime(0.5f, 2.5f);
+	uniform_real_distribution<float> BCTime(1.0f, 2.5f);
 	bcRandTime = BCTime(randomEngine);
 }
 
@@ -268,13 +277,13 @@ void GameManager::SpawnCloud()
 	uniform_real_distribution<float> distPositionY(80.0f, 135.0f);
 	float nRandY = distPositionY(randomEngine);
 	cloud.push_back(new Cloud(D3DXVECTOR2(400.0f, nRandY)));
-	uniform_real_distribution<float> cloudTime(5.0f, 10.0f);
+	uniform_real_distribution<float> cloudTime(4.0f, 8.0f);
 	cloudRandTime = cloudTime(randomEngine);
 }
 
 void GameManager::SpawnMoon()
 {
-	uniform_real_distribution<float> distPositionX(-100.0f, 200.0f);
+	uniform_real_distribution<float> distPositionX(0.0f, 220.0f);
 	float nRandX = distPositionX(randomEngine);
 	uniform_real_distribution<float> distPositionY(90.0f, 135.0f);
 	float nRandY = distPositionY(randomEngine);
@@ -297,6 +306,6 @@ void GameManager::SpawnStar()
 	star.push_back(new Star(D3DXVECTOR2(nRandX, nRandY),
 		starXY[nrandIndex].startX, starXY[nrandIndex].startY,
 		starXY[nrandIndex].endX, starXY[nrandIndex].endY));
-		uniform_real_distribution<float> starTime(3.0f, 5.0f);
+		uniform_real_distribution<float> starTime(2.0f, 3.0f);
 	starRandTime = starTime(randomEngine);
 }

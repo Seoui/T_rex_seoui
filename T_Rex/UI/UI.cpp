@@ -12,6 +12,7 @@ UI::UI(D3DXVECTOR2 position)
 	gameOverSprite = new Sprite(textureFile, shaderFile, 654, 14, 846, 26);
 	gameOverSprite->Scale(2, 2);
 	gameOverSprite->Position(-90.0f, 80.0f);
+
 	// 점수 애니메이션
 	for(int i = 0; i<5;i++)
 	{
@@ -57,8 +58,8 @@ void UI::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 
 	if (isCrash)
 	{
-		D3DXVECTOR2 position(220.0f, 220.0f);
 		gameOverSprite->Update(V, P);
+		D3DXVECTOR2 position(220.0f, 220.0f);
 		for (int i = 0; i < 7; i++)
 		{
 			HIsprite[i]->Position(position);
@@ -85,6 +86,16 @@ void UI::Render()
 	}
 }
 
+void UI::SpawnGameOverSprite()
+{
+	gameOverSprite->Position(-90.0f, 80.0f);
+}
+
+void UI::RemoveGameOverSprite()
+{	
+	gameOverSprite->Position(-500.0f, -500.0f);
+}
+
 bool UI::Crash(bool bCrash)
 {
 	if(prevGamePlayTime < curGamePlayTime)
@@ -104,8 +115,22 @@ bool UI::Crash(bool bCrash)
 			765, 1, 774, 13));
 		HIsprite.push_back(new Sprite(L"t_rex_sprite.png", L"Effect.fx",
 			754, 1, 764, 13));
+
+		prevGamePlayTime = curGamePlayTime;
+		curGamePlayTime = 0.0f;
 	}
 	
-	prevGamePlayTime = curGamePlayTime;
 	return isCrash;
+}
+
+void UI::Reset()
+{
+	for (auto& a : animation)
+	{
+		a->GetClip()->SetCurrentFrame(0);
+		a->GetClip()->resetPlayTime();
+	}
+	curGamePlayTime = 0.0f;
+
+	RemoveGameOverSprite();
 }

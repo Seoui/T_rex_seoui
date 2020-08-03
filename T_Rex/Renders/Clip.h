@@ -39,7 +39,8 @@ public:
 	void Play();
 	void Play(UINT startFrame);
 	void Stop();
-
+	void SetCurrentFrame(UINT num) { currentFrame = num; }
+	void resetPlayTime() { playTime = 0.0f; }
 	void Update(D3DXMATRIX& V, D3DXMATRIX& P);
 	void Render();
 
