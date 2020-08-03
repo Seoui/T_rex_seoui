@@ -6,7 +6,7 @@
 
 SceneValues* values;
 vector<Scene*> scenes;
-
+GameScene* gameScene;
 
 void InitScene()
 {
@@ -15,7 +15,9 @@ void InitScene()
 	values->MainCamera = new Camera();
 	D3DXMatrixIdentity(&values->Projection);
 
-	scenes.push_back(new GameScene(values));
+	gameScene = new GameScene(values);
+	scenes.push_back(gameScene);
+	
 }
 
 void DestroyScene()
@@ -28,8 +30,7 @@ void DestroyScene()
 void Update()
 {
 	values->MainCamera->Update();
-	
-	
+		
 	// Projection
 	D3DXMatrixOrthoOffCenterLH
 	(
@@ -41,18 +42,30 @@ void Update()
 	
 	for (Scene* scene : scenes)
 		scene->Update();
+	
 }
 
 void Render()
 {
-	D3DXCOLOR bgcolor = D3DXCOLOR(1, 1, 1, 1 );
-	DeviceContext->ClearRenderTargetView(RTV, (float*)bgcolor);
+	if (gameScene->getNight())
 	{
-
-
-		for (Scene* scene : scenes)
-			scene->Render();
+		D3DXCOLOR bgcolor = D3DXCOLOR(0, 0, 0, 0);
+		DeviceContext->ClearRenderTargetView(RTV, (float*)bgcolor);
+		{
+			for (Scene* scene : scenes)
+				scene->Render();
+		}
 	}
+	else
+	{
+		D3DXCOLOR bgcolor = D3DXCOLOR(1, 1, 1, 1);
+		DeviceContext->ClearRenderTargetView(RTV, (float*)bgcolor);
+		{
+			for (Scene* scene : scenes)
+				scene->Render();
+		}
+	}
+	
 	ImGui::Render();
 
 	DirectWrite::GetDC()->BeginDraw();

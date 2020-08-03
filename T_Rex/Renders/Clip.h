@@ -5,9 +5,9 @@ enum class PlayMode { End = 0, Loop };
 struct Frame
 {
 	Sprite* Image;
-	float Time;
+	double Time;
 
-	Frame(Sprite* image, float time);
+	Frame(Sprite* image, double time);
 	~Frame();
 };
 
@@ -34,6 +34,7 @@ public:
 	D3DXVECTOR3 RotationDegree();
 
 	void AddFrame(Sprite* sprite, float time);
+	void AddFrame(Sprite* sprite, double time);
 
 	void Play();
 	void Play(UINT startFrame);

@@ -6,7 +6,7 @@
 // Frame(Struct)
 //-----------------------------------------------------------------------------
 
-Frame::Frame(Sprite * image, float time)
+Frame::Frame(Sprite * image, double time)
 {
 	Image = image;
 	Time = time;
@@ -94,6 +94,11 @@ void Clip::AddFrame(Sprite * sprite, float time)
 	frames.push_back(new Frame(sprite, time));
 }
 
+void Clip::AddFrame(Sprite* sprite, double time)
+{
+	frames.push_back(new Frame(sprite, time));
+}
+
 void Clip::Play()
 {
 	playTime = 0.0f;
@@ -120,7 +125,7 @@ void Clip::Update(D3DXMATRIX & V, D3DXMATRIX & P)
 
 	if (bPlay == true)
 	{
-		float time = frame->Time * speed;
+		double time = frame->Time * speed;
 		playTime += Time::Delta();
 
 		if (playTime >= time)

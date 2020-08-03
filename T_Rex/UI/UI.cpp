@@ -6,9 +6,13 @@ UI::UI(D3DXVECTOR2 position)
 {
 	wstring shaderFile = L"Effect.fx";
 	wstring textureFile = L"t_rex_sprite.png";
-	
-	float time = 0.5f;
 
+	double time = 0.1f;
+
+	gameOverSprite = new Sprite(textureFile, shaderFile, 654, 14, 846, 26);
+	gameOverSprite->Scale(2, 2);
+	gameOverSprite->Position(-90.0f, 80.0f);
+	// 점수 애니메이션
 	for(int i = 0; i<5;i++)
 	{
 		animation.push_back(new Animation());
@@ -40,13 +44,27 @@ UI::~UI()
 {
 	for (auto& i : animation)
 		SAFE_DELETE(i);
+	SAFE_DELETE(gameOverSprite);
 }
 
 void UI::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 {
+	curGamePlayTime += Time::Delta();
 	for (int i = 0; i < 5; i++)
 	{
 		animation[i]->Update(V, P);
+	}
+
+	if (isCrash)
+	{
+		D3DXVECTOR2 position(220.0f, 220.0f);
+		gameOverSprite->Update(V, P);
+		for (int i = 0; i < 7; i++)
+		{
+			HIsprite[i]->Position(position);
+			HIsprite[i]->Update(V, P);
+			position.x -= 11.0f;
+		}
 	}
 }
 
@@ -56,4 +74,38 @@ void UI::Render()
 	{
 		animation[i]->Render();
 	}
+
+	if (isCrash)
+	{
+		gameOverSprite->Render();
+		for (int i = 0; i < 7; i++)
+		{
+			HIsprite[i]->Render();
+		}
+	}
+}
+
+bool UI::Crash(bool bCrash)
+{
+	if(prevGamePlayTime < curGamePlayTime)
+	{
+		isCrash = bCrash;
+		HIsprite.clear();
+		for (int i = 0; i < 5; i++)
+		{
+			D3DXVECTOR4 textureCoord = animation[i]->GetSprite()->getTextureCoord();
+
+			HIsprite.push_back(new Sprite(L"t_rex_sprite.png",L"Effect.fx",
+				textureCoord.x, textureCoord.y,
+				textureCoord.z, textureCoord.w
+			));
+		}
+		HIsprite.push_back(new Sprite(L"t_rex_sprite.png", L"Effect.fx",
+			765, 1, 774, 13));
+		HIsprite.push_back(new Sprite(L"t_rex_sprite.png", L"Effect.fx",
+			754, 1, 764, 13));
+	}
+	
+	prevGamePlayTime = curGamePlayTime;
+	return isCrash;
 }

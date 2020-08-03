@@ -9,15 +9,20 @@ Moon::Moon(D3DXVECTOR2 position)
 
 	animation = new Animation();
 	Clip* clip = new Clip(PlayMode::Loop);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 483, 1, 504, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 504, 1, 524, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 523, 1, 544, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 543, 1, 584, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 583, 1, 604, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 603, 1, 624, 42), 0.5f);
-	clip->AddFrame(new Sprite(textureFile, shaderFile, 623, 1, 644, 42), 0.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 484, 1, 504, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 505, 1, 524, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 524, 1, 544, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 544, 1, 584, 42), 3.5f);
 	animation->AddClip(clip);
 
+	clip = new Clip(PlayMode::Loop);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 544, 1, 584, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 584, 1, 604, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 604, 1, 624, 42), 3.5f);
+	clip->AddFrame(new Sprite(textureFile, shaderFile, 624, 1, 644, 42), 3.5f);
+	animation->AddClip(clip);
+
+	animation->Play(0);
 	animation->Position(position);
 	animation->Scale(scale);
 }

@@ -25,6 +25,8 @@ public:
 
 	vector<Bird*>& GetBird() { return bird; }
 	vector<Cactus*>& GetCactus() { return cactus; }
+	void setNight(bool bState) { bNight = bState; }
+	void setMoveSpeed(float speed);
 
 private:
 	void SpawnBirdOrCactus();
@@ -50,6 +52,7 @@ private:
 	SxyExy starXY[3];
 
 	bool bNight = false;
+	float moveSpeed = 200.0f;
 	float bcPlayTime = 0.0f;
 	float bcRandTime;
 	float cloudPlayTime = 0.0f;

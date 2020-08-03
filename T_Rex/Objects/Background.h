@@ -43,10 +43,12 @@ public:
 	void Update(D3DXMATRIX& V, D3DXMATRIX& P);
 	void Render();
 	void SwapGround(bool bSwapGround);
+	void SetMoveSpeed(float speed) { moveSpeed = speed; }
 
 	D3DXMATRIX getLineTriggerWorld() { return lineTrigger->getWorld(); }
 	D3DXMATRIX getCurSpriteWorld() { return sprites[nCurSprite]->World(); }
 	D3DXVECTOR2 GetBackGroundTrigger() { return backGroundTrigger; }
+
 
 private:
 	LineTrigger* lineTrigger;

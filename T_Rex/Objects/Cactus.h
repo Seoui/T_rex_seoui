@@ -12,6 +12,7 @@ public:
 	void Position(D3DXVECTOR2 vec) { position = vec; }
 	D3DXVECTOR2 Position() { return position; }
 	Sprite* GetSprite() { return sprite; }
+	void setMoveSpeed(float speed) { moveSpeed = speed; }
 
 private:
 	D3DXVECTOR2 position;

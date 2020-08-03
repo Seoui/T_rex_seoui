@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameManager.h"
-//HX 오브젝트 스폰시간 다 바꾸어야 함.
-//구름, 달, 별의 높이범위도 바꾸어야 함.
+
 GameManager::GameManager()
 {
 	// 6가지 종류의 선인장
@@ -20,13 +19,13 @@ GameManager::GameManager()
 		새와 선인장은 동시에 나오면 안되기 때문에 묶어서 spawn한다.
 		bc가 bird와 cactus를 뜻함. 
 	*/
-	uniform_real_distribution<float> bcTime(5.0f, 10.0f);
+	uniform_real_distribution<float> bcTime(1.0f, 5.0f);
 	bcRandTime = bcTime(randomEngine);
 	uniform_real_distribution<float> cloudTime(5.0f, 10.0f);
 	cloudRandTime = cloudTime(randomEngine);
-	uniform_real_distribution<float> moonTime(5.0f, 10.0f);
+	uniform_real_distribution<float> moonTime(2.0f, 4.0f);
 	moonRandTime = moonTime(randomEngine);
-	uniform_real_distribution<float> starTime(5.0f, 10.0f);
+	uniform_real_distribution<float> starTime(2.0f, 3.0f);
 	starRandTime = starTime(randomEngine);
 }
 
@@ -99,7 +98,7 @@ void GameManager::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 	if(bNight)
 	{
 		moonPlayTime += Time::Delta();
-		if (moonRandTime < moonPlayTime)
+		if (moonRandTime < moonPlayTime && moon.size()<1)
 		{
 			SpawnMoon();
 			moonPlayTime = 0.0f;
@@ -108,9 +107,13 @@ void GameManager::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 		{
 			for (auto& m : moon)
 				m->Update(V, P);
-		}
+		}	
 	}
-
+	else
+	{
+		moon.clear();
+	}
+	
 	// spawn star
 	if(bNight)
 	{
@@ -125,6 +128,10 @@ void GameManager::Update(D3DXMATRIX& V, D3DXMATRIX& P)
 			for (auto& s : star)
 				s->Update(V, P);
 		}
+	}
+	else
+	{
+		star.clear();
 	}
 
 	// remove passed object
@@ -180,7 +187,7 @@ void GameManager::RemoveObject()
 {
 	if (bird.size() > 0)
 	{
-		if (bird[0]->Position().x < -400.0f)
+		if (bird[0]->Position().x < -500.0f)
 		{
 			bird.erase(bird.begin());
 			birdColliders.erase(birdColliders.begin());
@@ -188,21 +195,38 @@ void GameManager::RemoveObject()
 	}
 	if (cactus.size() > 0)
 	{
-		if (cactus[0]->Position().x < -400.0f)
+		if (cactus[0]->Position().x < -500.0f)
 		{
 			cactus.erase(cactus.begin());
 			cactusColliders.erase(cactusColliders.begin());
 		}
 	}
 	if (cloud.size() > 0)
-		if (cloud[0]->Position().x < -400.0f)
+		if (cloud[0]->Position().x < -500.0f)
 			cloud.erase(cloud.begin());
 	if (moon.size() > 0)
-		if (moon[0]->Position().x < -400.0f)
+		if (moon[0]->Position().x < -500.0f)
 			moon.erase(moon.begin());
 	if (star.size() > 0)
-		if (star[0]->Position().x < -400.0f)
+		if (star[0]->Position().x < -500.0f)
 			star.erase(star.begin());
+}
+
+void GameManager::setMoveSpeed(float speed)
+{
+	moveSpeed = speed;
+
+	if (bird.size() > 0)
+	{
+		for (auto& b : bird)
+			b->setMoveSpeed(speed);
+	}
+
+	if (cactus.size() > 0)
+	{
+		for (auto& c : cactus)
+			c->setMoveSpeed(speed);
+	}
 }
 
 void GameManager::SpawnBirdOrCactus()
@@ -213,7 +237,7 @@ void GameManager::SpawnBirdOrCactus()
 		SpawnBird();
 	else
 		SpawnCactus();
-	uniform_real_distribution<float> BCTime(2.0f, 5.0f);
+	uniform_real_distribution<float> BCTime(0.5f, 2.5f);
 	bcRandTime = BCTime(randomEngine);
 }
 
@@ -221,7 +245,9 @@ void GameManager::SpawnBird()
 {
 	uniform_int_distribution<int> distPositionY(0, 3);
 	int nRandY = distPositionY(randomEngine);
-	bird.push_back(new Bird(D3DXVECTOR2(400.0f, nRandY * 30.0f)));
+	Bird* nBird = new Bird(D3DXVECTOR2(400.0f, nRandY * 20.0f));
+	nBird->setMoveSpeed(moveSpeed);
+	bird.push_back(nBird);
 	birdColliders.push_back(new Collider());
 }
 
@@ -229,9 +255,11 @@ void GameManager::SpawnCactus()
 {
 	uniform_int_distribution<int> distIndex(0, 5);
 	int nrandIndex = distIndex(randomEngine);
-	cactus.push_back(new Cactus(D3DXVECTOR2(400.0f, 0.0f),
+	Cactus* nCactus = new Cactus(D3DXVECTOR2(400.0f, 0.0f),
 		cactusXY[nrandIndex].startX, cactusXY[nrandIndex].startY,
-		cactusXY[nrandIndex].endX, cactusXY[nrandIndex].endY));
+		cactusXY[nrandIndex].endX, cactusXY[nrandIndex].endY);
+	nCactus->setMoveSpeed(moveSpeed);
+	cactus.push_back(nCactus);
 	cactusColliders.push_back(new Collider());
 }
 
@@ -246,12 +274,15 @@ void GameManager::SpawnCloud()
 
 void GameManager::SpawnMoon()
 {
-	uniform_real_distribution<float> distPositionX(-200.0f, 200.0f);
+	uniform_real_distribution<float> distPositionX(-100.0f, 200.0f);
 	float nRandX = distPositionX(randomEngine);
 	uniform_real_distribution<float> distPositionY(90.0f, 135.0f);
 	float nRandY = distPositionY(randomEngine);
 	moon.push_back(new Moon(D3DXVECTOR2(nRandX, nRandY)));
-	uniform_real_distribution<float> moonTime(0.0f, 1.0f);
+	uniform_int_distribution<int> distPlayIndex(0, 1);
+	int nplayIndex = distPlayIndex(randomEngine);
+	moon[0]->Play(nplayIndex);
+	uniform_real_distribution<float> moonTime(3.0f, 4.0f);
 	moonRandTime = moonTime(randomEngine);
 }
 
@@ -259,13 +290,13 @@ void GameManager::SpawnStar()
 {
 	uniform_int_distribution<int> distIndex(0, 2);
 	int nrandIndex = distIndex(randomEngine);
-	uniform_real_distribution<float> distPositionX(-200.0f, 200.0f);
+	uniform_real_distribution<float> distPositionX(-150.0f, 200.0f);
 	float nRandX = distPositionX(randomEngine);
 	uniform_real_distribution<float> distPositionY(80.0f, 135.0f);
 	float nRandY = distPositionY(randomEngine);
 	star.push_back(new Star(D3DXVECTOR2(nRandX, nRandY),
 		starXY[nrandIndex].startX, starXY[nrandIndex].startY,
 		starXY[nrandIndex].endX, starXY[nrandIndex].endY));
-		uniform_real_distribution<float> starTime(5.0f, 10.0f);
+		uniform_real_distribution<float> starTime(3.0f, 5.0f);
 	starRandTime = starTime(randomEngine);
 }

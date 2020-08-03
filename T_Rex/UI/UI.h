@@ -12,10 +12,15 @@ public:
 	void Position(D3DXVECTOR2 vec) { position = vec; }
 	D3DXVECTOR2 Position() { return position; }
 
+	bool Crash(bool bCrash);
 private:
 	D3DXVECTOR2 position;
 	D3DXVECTOR2 scale;
 
 	vector<Animation*> animation;
-	//HX 최고점수 저장
+	vector<Sprite*> HIsprite;
+	Sprite* gameOverSprite = nullptr;
+	bool isCrash = false;
+	float curGamePlayTime = 0.0f;
+	float prevGamePlayTime = 0.0f;
 };

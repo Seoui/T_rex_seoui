@@ -40,7 +40,7 @@ public:
 	D3DXVECTOR2 TextureSize() { return textureSize; }
 	D3DXMATRIX World() { return world; }
 
-	void setEffectScalar(bool bCheck) { sScalar->SetBool(bCheck); }
+	D3DXVECTOR4 getTextureCoord() { return textureCoord; }
 
 private:
 	void UpdateWorld();
@@ -73,13 +73,13 @@ private:
 	ID3DX11EffectMatrixVariable* sWorld;
 	ID3DX11EffectMatrixVariable* sView;
 	ID3DX11EffectMatrixVariable* sProjection;
-	ID3DX11EffectScalarVariable* sScalar;
 
 	D3DXVECTOR2 textureSize;
 
 	wstring textureFile;
 	ID3D11ShaderResourceView* srv;
 
+	D3DXVECTOR4 textureCoord;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

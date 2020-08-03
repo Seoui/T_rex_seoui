@@ -24,6 +24,11 @@ void Sprite::Initialize(wstring textureFile, wstring shaderFile, float startX, f
 {
 	this->textureFile = L"./_Textures/" + textureFile;
 
+	textureCoord.x = startX;
+	textureCoord.y = startY;
+	textureCoord.z = endX;
+	textureCoord.w = endY;
+
 	shader = new Shader(shaderFile);
 
 	srv = Sprites::Load(this->textureFile);
@@ -73,8 +78,6 @@ void Sprite::Initialize(wstring textureFile, wstring shaderFile, float startX, f
 	sWorld = shader->AsMatrix("World");
 	sView = shader->AsMatrix("View");
 	sProjection = shader->AsMatrix("Projection");
-	sScalar = shader->AsScalar("Scalar");
-	sScalar->SetBool(0);
 
 	UpdateWorld();
 
